@@ -52,11 +52,17 @@ def generate_response(result):
             occurrence_dict[LABELS[l]] += 1
         else:
             occurrence_dict[LABELS[l]] = 1
+
+    detections=[]
+    for label, quantity in occurrence_dict.items():
+         detections.append({"name":label,
+                            "quantity":quantity})
     response = {
-        'detections':occurrence_dict
+        'detections':detections
     }
 
     return response
+
 
 def yolobbox2bbox(x,y,w,h):
     x1, y1 = x-w/2, y-h/2
