@@ -23,7 +23,7 @@ def preprocess(image_data):
     return image
 
 def execute(image):
-    model_path = 'app/weigths/FV_model_v1.onnx'
+    model_path = './app/weigths/best_v9_9.onnx'
     session = ort.InferenceSession(model_path)
     outputs = session.run(None, {session.get_inputs()[0].name: image})
     outputs = np.array(outputs).squeeze().transpose()
@@ -31,7 +31,7 @@ def execute(image):
     for out in outputs:
         sigmoid = max(out[4:])
         label = np.argmax(out[4:])
-        if sigmoid >= 0.5:
+        if sigmoid >= 0.3:
             detections.append([out[0],out[1],out[2],out[3], label])
     return detections
 
@@ -42,7 +42,7 @@ def postprocess(detections):
     w = det[:, 2]
     h = det[:, 3]
     det[:, :4] = yolobbox2bbox(x,y,w,h)
-    new_det = non_max_suppression_fast(det, 0.5)
+    new_det = non_max_suppression_fast(det, 0.3)
     return new_det
 
 def generate_response(result):

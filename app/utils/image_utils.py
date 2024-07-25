@@ -22,7 +22,6 @@ def expand2square(pil_img, background_color, resize):
     return result
 
 def non_max_suppression_fast(boxes, overlapThresh):
-	# if there are no boxes, return an empty list
 	if len(boxes) == 0:
 		return []
 	if boxes.dtype.kind == "i":
