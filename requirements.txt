@@ -1,0 +1,6 @@
+fastapi
+onnxruntime
+pillow
+numpy
+dvc
+dvc_gdrive
